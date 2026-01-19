@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 0px!important;
+}
+code,
+pre,
+.mono {
+  font-family: var(--font-geist-mono), monospace;
+}
+.footerbg123{
+    position: relative;
+  background-image: url("../../public/img/6.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  color: #c0c0c0;
+}
+
+.footerbg {
+  position: relative;
+  background-image: url("../../public/images/header_149760605358_shutterstock_362487254_2000x1000.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  color: #c0c0c0;
+}
+
+.bgbg {
+  background-image: url("../../public/images/bgbgbg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 25%;
+}
+
+.whychoose.footerbg {
+  background-attachment: fixed;
+}
+
+.footerbg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.811);
+  z-index: 1;
+}
+
+.footerbg>* {
+  position: relative;
+  z-index: 2;
+}
+@media print {
+  body {
+    margin: 0;
+    
+  }
+
+  .print-page {
+    page-break-after: always;
+    break-after: page;
+   
+  }
+
+  .print-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
