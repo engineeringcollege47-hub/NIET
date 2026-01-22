@@ -110,7 +110,7 @@ export default function MarksheetPreview({ marksheet }) {
                     Sr.NO: <span className='text-[12px] '> {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}</span>
                   </div>
                   <div className="absolute bottom-0 font-semibold right-0 left-0 text-center text-xs text-gray-800">
-                    To verify your mark sheet please send details on: verification@rgitm.com
+                    To verify your mark sheet please send details on: nieat.in
                   </div>
 
                   <div className="absolute inset-0 z-0 pointer-events-none opacity-10">
@@ -140,7 +140,7 @@ export default function MarksheetPreview({ marksheet }) {
 
                   <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
-                      src="/images/mainnewlogo.png"
+                      src="/images/mainmain.png"
                       alt="Watermark Seal"
                       className="object-contain opacity-20 "
                       height={600}
@@ -155,7 +155,7 @@ export default function MarksheetPreview({ marksheet }) {
 
                         <div className="absolute left-0 flex items-center mt-8">
                           <Image
-                            src="/images/mainnewlogo.png"
+                            src="/images/mainmain.png"
                             alt="Watermark Seal"
                             height={150}
                             width={150}

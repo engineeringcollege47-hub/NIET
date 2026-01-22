@@ -30,7 +30,7 @@ export default function page() {
               <div>
                 <span className="inline-block mb-3 px-4 py-1 text-xs font-semibold 
                 text-orange-600 bg-orange-100 rounded-full">
-                  About NIET
+                  About NIEAT
                 </span>
 
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-5">
@@ -100,7 +100,7 @@ export default function page() {
         {/* CTA */}
         <section className="footerbg123 flex flex-col justify-center items-center text-black py-20 text-center">
           <h2 className="text-3xl text-white font-bold mb-4 px-3 py-1 rounded-lg   inline bg-black/80">
-            Build Your Future with NIET
+            Build Your Future with NIEAT
           </h2>
           <p className="text-white px-3 py-1 rounded-lg   inline  bg-black/80 mb-8">
             Join The National Institute of Engineering & Technology and take the

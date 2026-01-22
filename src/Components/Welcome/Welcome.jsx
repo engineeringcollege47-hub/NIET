@@ -56,7 +56,7 @@ export default function Welcome() {
                         {/* Right Content */}
                         <div>
                             <span className="text-orange-600 font-semibold tracking-wide uppercase text-sm">
-                                Welcome To NIET
+                                Welcome To NIEAT
                             </span>
 
                             <h2 className="mt-3 text-2xl md:text-4xl font-bold text-slate-900 leading-tight">

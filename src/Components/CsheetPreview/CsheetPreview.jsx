@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 export default function CsheetPreview({ data }) {
     // --- STATIC RESOURCES ---
-    const emblemUrl = "/images/mainnewlogo.png";
+    const emblemUrl = "/images/mainmain.png";
 
     // --- STATIC DATA (From PDF Source) ---
     const staticData = {
@@ -41,7 +41,7 @@ export default function CsheetPreview({ data }) {
             <div className="w-full relative overflow-auto bg-gray-200 py-8 flex justify-center">
                 <div className="absolute top-0 bottom-0 left-0 right-0 inset-0 z-10 flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
-                        src="/images/mainnewlogo.png"
+                        src="/images/mainmain.png"
                         alt="Watermark Seal"
                         className="object-contain opacity-10 grayscale"
                         height={600}

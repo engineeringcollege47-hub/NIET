@@ -76,7 +76,7 @@ export default function Header() {
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-3">
                             <Image
-                                src="/images/mainnewlogo.png"
+                                src="/images/mainmain.png"
                                 alt="NIET Logo"
                                 width={60}
                                 height={60}
@@ -85,7 +85,7 @@ export default function Header() {
 
                             <div className="leading-tight ">
                                 <h1 className="text-lg font-bold text-orange-600">
-                                   The National Institute
+                                   National Institute
                                 </h1>
                                 <p className="text-xs text-gray-600">
                                     Engineering & Technology
