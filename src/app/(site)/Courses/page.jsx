@@ -32,7 +32,7 @@ export default function CoursesPage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch('/api/courses', { cache: 'no-store' });
+        const res = await fetch('/api/activecourses', { cache: 'no-store' });
         const data = await res.json();
         setCourses(data || []);
       } catch (err) {

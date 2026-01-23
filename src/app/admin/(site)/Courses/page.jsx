@@ -12,6 +12,7 @@ export default function CoursesPage() {
   const [form, setForm] = useState({
     title: "",
     image: null,
+    isActive: true,
     descriptionPoints: [{ title: "", code: "" }],
   });
 
@@ -34,7 +35,7 @@ export default function CoursesPage() {
     try {
       const data = new FormData();
       data.append("title", form.title);
-
+      data.append("isActive", form.isActive);
       if (form.image) {
         data.append("image", form.image);
       }
@@ -70,6 +71,7 @@ export default function CoursesPage() {
     setForm({
       title: c.title,
       image: null,
+      isActive: c.isActive ?? true,
       descriptionPoints: c.descriptionPoints?.length
         ? c.descriptionPoints
         : [{ title: "", code: "" }],
@@ -106,6 +108,7 @@ export default function CoursesPage() {
     setForm({
       title: "",
       image: null,
+      isActive: true,
       descriptionPoints: [{ title: "", code: "" }],
     });
   };
@@ -150,6 +153,17 @@ export default function CoursesPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-semibold">{c.title}</h3>
+                  <span
+                    className={`text-xs px-2 py-1 rounded-full ${c.isActive
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                      }`}
+                  >
+                    {c.isActive ? "Active" : "Inactive"}
+                  </span>
+                </div>
 
                 <button
                   onClick={() => editCourse(c)}
@@ -177,6 +191,21 @@ export default function CoursesPage() {
 
             {/* MODAL BODY */}
             <div className="p-4 overflow-y-auto space-y-3">
+              <div className="flex items-center gap-3">
+                <label className="font-medium text-sm">Course Status</label>
+                <input
+                  type="checkbox"
+                  checked={form.isActive}
+                  onChange={(e) =>
+                    setForm({ ...form, isActive: e.target.checked })
+                  }
+                  className="w-5 h-5 accent-orange-600"
+                />
+                <span className="text-sm text-slate-600">
+                  {form.isActive ? "Active" : "Inactive"}
+                </span>
+              </div>
+
               <input
                 className="w-full border rounded-lg p-2"
                 placeholder="Course Title"
@@ -231,7 +260,7 @@ export default function CoursesPage() {
                       arr[i].code = e.target.value;
                       setForm({ ...form, descriptionPoints: arr });
                     }}
-                     readOnly={!!editing}
+                    readOnly={!!editing}
                   />
                 </div>
               ))}
@@ -281,8 +310,8 @@ export default function CoursesPage() {
                       ? "Updating..."
                       : "Creating..."
                     : editing
-                    ? "Update"
-                    : "Create"}
+                      ? "Update"
+                      : "Create"}
                 </button>
               </div>
             </div>
