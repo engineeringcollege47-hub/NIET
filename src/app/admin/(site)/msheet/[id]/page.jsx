@@ -34,6 +34,7 @@ export default function MarksheetPage() {
     title1: "",   // ✅ NEW
     title2: "",   // ✅ NEW
     city: "",   // ✅ NEW
+    status: "",   // ✅ NEW
     subjects: [],
     semestersmark: [],
     total: 0,
@@ -374,6 +375,25 @@ export default function MarksheetPage() {
             </div>
 
           </div>
+
+          <div className="space-y-1">
+            <label className="text-sm font-medium text-gray-600">
+              Semester / Year
+            </label>
+
+            <select
+              value={marksheet.status}
+              onChange={(e) =>
+                setMarksheet({ ...marksheet, status: e.target.value })
+              }
+              className="w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+            >
+              <option value="">Select</option>
+              <option value="PUBLISHED">Semester</option>
+              <option value="DRAFT">Year</option>
+            </select>
+          </div>
+
           <div className="bg-white p-6 rounded-2xl border mt-5">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold text-gray-800">

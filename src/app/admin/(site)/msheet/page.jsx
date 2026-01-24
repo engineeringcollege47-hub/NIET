@@ -114,7 +114,6 @@ export default function Page() {
                 <th className="p-3">Total</th>
                 <th className="p-3">%</th>
                 <th className="p-3">Grade</th>
-                <th className="p-3">Status</th>
                 <th className="p-3">Action</th>
               </tr>
             </thead>
@@ -128,16 +127,7 @@ export default function Page() {
                   <td className="p-3">{m.total}</td>
                   <td className="p-3">{m.percentage}%</td>
                   <td className="p-3 font-semibold">{m.grade}</td>
-                  <td className="p-3">
-                    <span
-                      className={`px-2 py-1 rounded text-xs ${m.status === "PUBLISHED"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                        }`}
-                    >
-                      {m.status}
-                    </span>
-                  </td>
+                 
                   <td className="p-3">
                     <button
                       onClick={() => {

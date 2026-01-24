@@ -25,7 +25,8 @@ export async function POST(req) {
       "issueDate",
       "title1",
       "title2",
-      "city"
+      "city",
+      "status"
     ];
 
     for (const field of requiredFields) {

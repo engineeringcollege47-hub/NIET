@@ -53,6 +53,7 @@ export default function MarksheetPreview({ marksheet }) {
     title1: marksheet.title1 || "----",
     title2: marksheet.title2 || "---",
     city: marksheet.city || "---",
+    status: marksheet.status || "---",
     session: marksheet.session || "---",
     name: marksheet.name || "---",
     fatherName: marksheet.fatherName || "--",
@@ -351,12 +352,15 @@ export default function MarksheetPreview({ marksheet }) {
                                 key={i}
                                 className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30"
                               >
-                                {s.name}
+                                {data.status === "PUBLISHED"
+                                  ? s.name.replace(/Year/i, "Sem")
+                                  : s.name.replace(/Sem/i, "Year")}
                               </div>
                             ))}
 
+
                             <div className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30">
-                              Final Sem
+                              {data.status === "PUBLISHED" ? "Final Sem" : "Final Year"}
                             </div>
 
                             <div className="min-w-[100px] px-2 py-1 text-center font-bold">

@@ -6,16 +6,14 @@ import AdmissionModel from "@/app/model/AdmissionModel";
 /* =========================
    RANDOM CERTIFICATE NUMBER HELPERS
 ========================= */
-function generateRandomCertificateNumber(length = 8) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
+function generateRandomCertificateNumber(length = 6) {
+  const min = Math.pow(10, length - 1); // e.g. 100000
+  const max = Math.pow(10, length) - 1; // e.g. 999999
 
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-
-  return `CERT-${result}`;
+  const number = Math.floor(min + Math.random() * (max - min + 1));
+  return `CERT-${number}`;
 }
+
 
 async function getUniqueCertificateNumber() {
   let certificateNumber;

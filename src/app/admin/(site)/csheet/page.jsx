@@ -111,7 +111,6 @@ export default function Page() {
                 <th className="p-3">fatherName</th>
                 <th className="p-3">DOB</th>
                 <th className="p-3">Rnrollment No</th>
-                <th className="p-3">Status</th>
                 <th className="p-3">Action</th>
               </tr>
             </thead>
@@ -126,16 +125,7 @@ export default function Page() {
                   </td>
 
                   <td className="p-3">{m.enrollmentNo}</td>
-                  <td className="p-3">
-                    <span
-                      className={`px-2 py-1 rounded text-xs ${m.status === "PUBLISHED"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                        }`}
-                    >
-                      {m.status}
-                    </span>
-                  </td>
+                 
                   <td className="p-3">
                     <button
                       onClick={() => {
