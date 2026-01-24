@@ -34,7 +34,7 @@ export default function ApplyNowPage() {
     setLoading(false);
   };
   const fetchCourses = async () => {
-    const res = await fetch("/api/courses");
+    const res = await fetch("/api/activecourses");
     const data = await res.json();
     setCourses(data);
   };
