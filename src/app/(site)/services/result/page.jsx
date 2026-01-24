@@ -85,8 +85,9 @@ export default function Page() {
 
             {/* HEADER */}
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">
-                NIEAT
+             <h2 className="text-3xl font-bold text-[#d95f02] uppercase">
+                National Institute
+                Engineering & Technology
               </h2>
 
               <p className="mt-2 font-semibold">Examination Result</p>
