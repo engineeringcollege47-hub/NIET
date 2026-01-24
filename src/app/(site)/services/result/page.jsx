@@ -86,7 +86,7 @@ export default function Page() {
             {/* HEADER */}
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-800">
-                My Brand
+                NIEAT
               </h2>
 
               <p className="mt-2 font-semibold">Examination Result</p>
