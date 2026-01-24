@@ -72,7 +72,7 @@ AdmissionSchema.pre("save", async function () {
 
     while (exists) {
       const randomSix = Math.floor(100000 + Math.random() * 900000);
-      enrollment = `NIET-${programmeCode}-${randomSix}`;
+      enrollment = `NIEAT-${programmeCode}-${randomSix}`;
 
       exists = await Admissiondata.exists({
         enrollmentNumber: enrollment,
