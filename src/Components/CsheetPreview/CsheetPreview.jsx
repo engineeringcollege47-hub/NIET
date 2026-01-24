@@ -7,7 +7,7 @@ export default function CsheetPreview({ data }) {
     // --- STATIC DATA (From PDF Source) ---
     const staticData = {
         certTitleHindi: "राष्ट्रीय संस्थान इंजीनियरिंग और प्रौद्योगिकी",
-        certTitleEng: "National Institute Engineering & Technology",
+        certTitleEng: "National Institute of Engineering & Technology",
         certifyTextHindi: "प्रमाणित किया जाता है कि",
         certifyTextEng: "This is to certify that",
         ncvetText: "National Institute of Engineering & Technology is an educational institution committed to academic excellence and skill development.",

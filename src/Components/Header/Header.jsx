@@ -85,7 +85,7 @@ export default function Header() {
 
                             <div className="leading-tight ">
                                 <h1 className="text-lg font-bold text-orange-600">
-                                   National Institute
+                                   National Institute of
                                 </h1>
                                 <p className="text-xs text-gray-600">
                                     Engineering & Technology

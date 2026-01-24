@@ -92,7 +92,7 @@ export default function Page() {
             {/* HEADER */}
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-[#d95f02] uppercase">
-                National Institute
+                National Institute of
                 Engineering & Technology
               </h2>
               <p className="text-sm font-semibold text-gray-700 mt-1">
