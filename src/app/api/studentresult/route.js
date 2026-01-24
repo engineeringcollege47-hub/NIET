@@ -29,7 +29,6 @@ export async function GET(req) {
     const marksheet = await MarksheetModel.findOne(
       {
         enrollment: enrollmentNumber,
-        status: "PUBLISHED",
       },
       { __v: 0 }
     );
