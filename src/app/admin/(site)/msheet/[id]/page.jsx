@@ -405,7 +405,7 @@ export default function MarksheetPage() {
                 className="px-4 py-1.5 text-sm rounded-lg
       bg-green-600 text-white hover:bg-green-700"
               >
-                + Add Semester
+                + Add Semester / Year
               </button>
             </div>
 
@@ -417,7 +417,7 @@ export default function MarksheetPage() {
                 >
                   {/* Semester Name */}
                   <div className="col-span-5">
-                    <label className="text-sm text-gray-600">Semester</label>
+                    <label className="text-sm text-gray-600">Semester/Year</label>
                     <select
                       value={sem.name}
                       onChange={(e) =>
@@ -426,7 +426,7 @@ export default function MarksheetPage() {
                       className="w-full border rounded-lg px-3 py-2 text-sm
             focus:ring-2 focus:ring-orange-400"
                     >
-                      <option value="">Select Semester</option>
+                      <option value="">Select Semester/Year</option>
                       {SEMESTER_OPTIONS.map(opt => (
                         <option key={opt} value={opt}>
                           {opt}
@@ -464,7 +464,7 @@ export default function MarksheetPage() {
 
               {marksheet.semestersmark.length === 0 && (
                 <p className="text-sm text-gray-500 italic">
-                  No semester added yet
+                  No semester/Year added yet
                 </p>
               )}
             </div>
