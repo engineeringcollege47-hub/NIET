@@ -429,7 +429,7 @@ export default function MarksheetPreview({ marksheet }) {
             }}
           >
             <div
-              className="w-full max-w-[210mm] h-[297mm]  mx-auto relative z-0"
+              className="w-full max-w-[210mm]  mx-auto relative z-0"
               style={{
                 WebkitPrintColorAdjust: "exact",
                 printColorAdjust: "exact",
