@@ -84,11 +84,11 @@ export default function Header() {
                             />
 
                             <div className="leading-tight ">
-                                <h1 className="text-lg font-bold text-orange-600">
-                                   National Institute of
+                                <h1 className="text-lg font-bold text-orange-600 capitalize">
+                                   National Institute 
                                 </h1>
-                                <p className="text-xs text-gray-600">
-                                    Engineering & Technology
+                                <p className="text-xs text-gray-600 capitalize">
+                                   of Engineering & Technology
                                 </p>
                             </div>
                         </Link>

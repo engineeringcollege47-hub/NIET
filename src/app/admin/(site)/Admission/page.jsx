@@ -196,7 +196,8 @@ export default function Page() {
               <th className="px-4 py-3">Payment</th>
               <th className="px-4 py-3">Enroll</th>
               <th className="px-4 py-3">Certificate</th>
-              <th className="px-4 py-3">Marksheet</th>
+              <th className="px-4 py-3">FinalMarksheet</th>
+              <th className="px-4 py-3">Semster Marksheet</th>
               <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
@@ -317,14 +318,24 @@ export default function Page() {
                         href={`/admin/msheet/${item.enrollmentNumber}`}
                         className="text-green-600 font-medium hover:underline"
                       >
-                        Generate Marksheet
+                        Generate Final Marksheet
                       </Link>
                     )
                   ) : (
                     <span className="text-gray-400 cursor-not-allowed">
-                      {item.marksheetStatus ? "Marksheet" : "Generate Marksheet"}
+                      {item.marksheetStatus ? "Final Marksheet" : "Generate Final Marksheet"}
                     </span>
                   )}
+                </td>
+
+                <td className="px-4 py-3">
+
+                  <Link
+                    href={`/admin/semsheetlist/${item.enrollmentNumber}`}
+                    className="text-green-600 font-medium hover:underline"
+                  >
+                    Check
+                  </Link>
                 </td>
 
                 <td className="px-4 py-3">

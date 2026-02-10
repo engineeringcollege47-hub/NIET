@@ -38,34 +38,37 @@ export default function AdminHeader() {
                         </Link>
 
                         {/* DESKTOP MENU (RIGHT SIDE) */}
-                        <nav className="hidden md:flex items-center gap-8 font-medium">
+                        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold">
 
-                            <Link href="/admin/Admission" className={`${isActive("/admin/Admission")} hover:text-orange-600`}>
+                            <Link href="/admin/Admission" className={`${isActive("/admin/Admission")} hover:text-orange-600 underline`}>
                                 Admission
                             </Link>
 
-                            <Link href="/admin/Courses" className={`${isActive("/admin/Courses")} hover:text-orange-600`}>
+                            <Link href="/admin/Courses" className={`${isActive("/admin/Courses")} hover:text-orange-600 underline`}>
                                 Courses
                             </Link>
-                            <Link href="/admin/Enquiry" className={`${isActive("/admin/Enquiry")} hover:text-orange-600`}>
+                            <Link href="/admin/Enquiry" className={`${isActive("/admin/Enquiry")} hover:text-orange-600 underline`}>
                                 Enquiry
                             </Link>
 
-                            <Link href="/admin/msheet" className={`${isActive("/admin/msheet")} hover:text-orange-600`}>
+                            <Link href="/admin/msheet" className={`${isActive("/admin/msheet")} hover:text-orange-600 underline`}>
                                 Marksheet
                             </Link>
-                            <Link href="/admin/csheet" className={`${isActive("/admin/csheet")} hover:text-orange-600`}>
+                            <Link href="/admin/semsheet" className={`${isActive("/admin/semsheet")} hover:text-orange-600 underline`}>
+                                Semester Marksheet
+                            </Link>
+                            <Link href="/admin/csheet" className={`${isActive("/admin/csheet")} hover:text-orange-600 underline`}>
                                 Certificate
                             </Link>
-                            <Link href="/admin/Address" className={`${isActive("/admin/Address")} hover:text-orange-600`}>
+                            <Link href="/admin/Address" className={`${isActive("/admin/Address")} hover:text-orange-600 underline`}>
                                 Address
                             </Link>
-                             <Link href="/admin/Mobile" className={`${isActive("/admin/Mobile")} hover:text-orange-600`}>
+                            <Link href="/admin/Mobile" className={`${isActive("/admin/Mobile")} hover:text-orange-600 underline`}>
                                 Mobile
                             </Link>
-                            
 
-                            <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600`}>
+
+                            <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600 underline`}>
                                 Pending
                             </Link>
 
