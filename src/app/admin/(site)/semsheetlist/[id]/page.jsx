@@ -38,15 +38,39 @@ export default function Page() {
         fetchData();
     }, [id]);
 
-    /* ======================
-       APPLY FILTER
-    ====================== */
-    const handleSearch = (e) => {
-        e.preventDefault();
-        setPage(1);
-        fetchData();
-    };
+  
 
+const handleDelete = async (enrollment, semester) => {
+    const confirmed = window.confirm(
+        `Are you sure you want to delete Semester ${semester} marksheet?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+        setLoading(true);
+
+        const res = await fetch(
+            `/api/semstersheet/delete/?enrollment=${enrollment}&semester=${semester}`,
+            { method: "DELETE" }
+        );
+
+        const result = await res.json();
+
+        if (!res.ok) {
+            alert(result.message || "Failed to delete marksheet");
+            return;
+        }
+
+        alert("Marksheet deleted successfully");
+        fetchData(); // refresh list
+    } catch (error) {
+        console.error(error);
+        alert("Something went wrong");
+    } finally {
+        setLoading(false);
+    }
+};
 
 
     return (
@@ -91,17 +115,25 @@ export default function Page() {
                                     <td className="p-3">{m.percentage}%</td>
                                     <td className="p-3 font-semibold">{m.grade}</td>
 
-                                    <td className="p-3">
-                                        <button
-                                            onClick={() => {
-                                                setSelectedMarksheet(m);
-                                                setOpenPreview(true);
-                                            }}
-                                            className="text-blue-600 hover:underline font-medium"
-                                        >
-                                            Check
-                                        </button>
-                                    </td>
+                                  <td className="p-3 flex gap-3">
+    <button
+        onClick={() => {
+            setSelectedMarksheet(m);
+            setOpenPreview(true);
+        }}
+        className="text-blue-600 hover:underline font-medium"
+    >
+        Check
+    </button>
+
+    <button
+        onClick={() => handleDelete(m.enrollment, m.semester)}
+        className="text-red-600 hover:underline font-medium"
+    >
+        Delete
+    </button>
+</td>
+
 
                                 </tr>
                             ))}
@@ -131,27 +163,7 @@ export default function Page() {
 
 
             {/* 📄 Pagination */}
-            <div className="flex justify-between items-center mt-6">
-                <button
-                    disabled={page === 1}
-                    onClick={() => setPage(page - 1)}
-                    className="border px-4 py-2 rounded disabled:opacity-50"
-                >
-                    Previous
-                </button>
-
-                <span>
-                    Page <b>{page}</b> of <b>{totalPages}</b>
-                </span>
-
-                <button
-                    disabled={page === totalPages}
-                    onClick={() => setPage(page + 1)}
-                    className="border px-4 py-2 rounded disabled:opacity-50"
-                >
-                    Next
-                </button>
-            </div>
+       
         </div>
     );
 }
