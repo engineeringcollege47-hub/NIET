@@ -19,14 +19,14 @@ export async function GET(req) {
 
     // 1. Try finding in MarksheetModel first (Published only)
     let resultData = await MarksheetModel.findOne(
-      { rollNumber: enrollmentNumber, status: "PUBLISHED" },
+      { rollNumber: enrollmentNumber },
       { __v: 0 }
     );
 
     // 2. Fallback: Try finding in SemsterModel if not found in Marksheet
     if (!resultData) {
       resultData = await SemsterModel.findOne(
-        { rollNumber: enrollmentNumber, status: "PUBLISHED" },
+        { rollNumber: enrollmentNumber },
         { __v: 0 }
       );
     }
