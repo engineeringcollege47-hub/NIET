@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/app/lib/dbConnect";
 import MarksheetModel from "@/app/model/MarksheetModel";
+import SemsterModel from "@/app/model/SemsterModel";
 
-/* ======================
-   GET → RESULT BY ENROLLMENT
-====================== */
 export async function GET(req) {
   try {
     await dbConnect();
@@ -12,9 +10,6 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const enrollmentNumber = searchParams.get("enrollmentNumber");
 
-    /* ----------------------
-       VALIDATION
-    ---------------------- */
     if (!enrollmentNumber) {
       return NextResponse.json(
         { error: "Enrollment number is required" },
@@ -22,35 +17,35 @@ export async function GET(req) {
       );
     }
 
-    /* ----------------------
-       FIND MARKSHEET
-       (ONLY PUBLISHED)
-    ---------------------- */
-    const marksheet = await MarksheetModel.findOne(
-      {
-        enrollment: enrollmentNumber,
-      },
+    // 1. Try finding in MarksheetModel first (Published only)
+    let resultData = await MarksheetModel.findOne(
+      { rollNumber: enrollmentNumber, status: "PUBLISHED" },
       { __v: 0 }
     );
 
-    if (!marksheet) {
+    // 2. Fallback: Try finding in SemsterModel if not found in Marksheet
+    if (!resultData) {
+      resultData = await SemsterModel.findOne(
+        { rollNumber: enrollmentNumber, status: "PUBLISHED" },
+        { __v: 0 }
+      );
+    }
+
+    if (!resultData) {
       return NextResponse.json(
-        { error: "Result not found or not published" },
+        { error: "Result not found or not yet published" },
         { status: 404 }
       );
     }
 
-    /* ----------------------
-       SUCCESS RESPONSE
-    ---------------------- */
     return NextResponse.json({
       success: true,
-      data: marksheet,
+      data: resultData,
     });
   } catch (error) {
-    console.error("Marksheet Fetch Error:", error);
+    console.error("Result Fetch Error:", error);
     return NextResponse.json(
-      { error: "Server error" },
+      { error: "Internal server error" },
       { status: 500 }
     );
   }
