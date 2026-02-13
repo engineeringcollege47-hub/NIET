@@ -127,7 +127,39 @@ export default function MarksheetPage() {
         (num % 100 ? " " + numberToWords(num % 100) : "");
     return num.toString();
   };
+  const generateUniqueRoll = (baseRoll, sem) => {
+    if (!baseRoll) return "";
+    // Removes spaces and gets a short timestamp (last 6 digits of current time)
+    const timestamp = Date.now().toString().slice(-6);
+    // Clean the semester string (e.g., "5th Sem" -> "5SEM")
+    const semCode = sem.replace(/\s+/g, '').toUpperCase();
+    return `${baseRoll}-${semCode}-${timestamp}`;
+  };
 
+  const handleSemesterChange = (val) => {
+    setMarksheet(prev => {
+      // 1. Get the first 3 digits of the existing roll number
+      // If rollNumber is "123456", base becomes "123"
+      const baseRoll = prev.rollNumber.toString().slice(0, 3);
+
+      // 2. Find the index of the selected semester to get the suffix
+      // 1st Sem = 0, 2nd Sem = 1, etc.
+      const semIndex = SEMESTER_OPTIONS.indexOf(val);
+
+      // 3. Format the suffix to be 3 digits (e.g., 001, 002)
+      // We add +1 so 1st Sem starts at 001 instead of 000
+      const suffix = (semIndex + 1).toString().padStart(3, '0');
+
+      // 4. Combine: "123" + "001" = "123001"
+      const newRoll = `${baseRoll}${suffix}`;
+
+      return {
+        ...prev,
+        semester: val,
+        rollNumber: newRoll
+      };
+    });
+  };
   /* ======================
      UPDATE SUBJECT MARKS
   ====================== */
@@ -190,32 +222,7 @@ export default function MarksheetPage() {
   }, [selectedCourseIds, selectedSubjects]);
 
 
-  const addSemester = () => {
-    setMarksheet(prev => ({
-      ...prev,
-      semestersmark: [
-        ...prev.semestersmark,
-        { name: "", totalMarks: "" },
-      ],
-    }));
-  };
 
-  const updateSemester = (index, field, value) => {
-    setMarksheet(prev => {
-      const updated = [...prev.semestersmark];
-      updated[index][field] =
-        field === "totalMarks" ? Number(value) : value;
-
-      return { ...prev, semestersmark: updated };
-    });
-  };
-
-  const removeSemester = (index) => {
-    setMarksheet(prev => ({
-      ...prev,
-      semestersmark: prev.semestersmark.filter((_, i) => i !== index),
-    }));
-  };
 
 
   /* ======================
@@ -244,8 +251,6 @@ export default function MarksheetPage() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-5">
-
-            {/* Session */}
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-600">
                 Academic Session
@@ -271,26 +276,22 @@ export default function MarksheetPage() {
                focus:border-orange-400"
               />
             </div>
-
-
-            {/* Semester */}
+            {/* Session */}
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-600">
                 Semester
               </label>
-              <input
-                type="text"
-                placeholder="e.g. 5th Semester"
+              <select
                 value={marksheet.semester}
-                onChange={(e) =>
-                  setMarksheet({ ...marksheet, semester: e.target.value })
-                }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm
-                   focus:outline-none focus:ring-2 focus:ring-orange-400
-                   focus:border-orange-400"
-              />
+                onChange={(e) => handleSemesterChange(e.target.value)}
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-orange-400"
+              >
+                <option value="">Select Semester</option>
+                {SEMESTER_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
             </div>
-            {/* SEMESTER MARKS */}
 
 
             {/* Examiner */}
@@ -376,9 +377,9 @@ export default function MarksheetPage() {
 
           </div>
 
-       
 
-         
+
+
         </div>
 
 
