@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Lock } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 export default function AdminHeader() {
@@ -71,7 +71,9 @@ export default function AdminHeader() {
                             <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600 underline`}>
                                 Pending
                             </Link>
-
+                            <Link href="/admin/change-password" className={`${isActive("/admin/change-password")} hover:text-orange-600 underline`}>
+                                <Lock size={18} />
+                            </Link>
 
                             <button
                                 onClick={handleLogout}
