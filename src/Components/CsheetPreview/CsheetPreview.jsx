@@ -228,17 +228,17 @@ export default function CsheetPreview({ data }) {
                                         {/* Left: Place/Date */}
                                         <div className="text-center w-1/4">
                                             <p className="font-bold text-sm mb-4">{safeData.place}</p>
-                                            <div className="border-t border-gray-400 pt-1">
-                                                <p className="text-[10px] text-gray-500">दिनांक / Date</p>
-                                                <p className="font-bold text-sm">
-                                                    {new Date(safeData.issueDate).toLocaleDateString("en-GB", {
-                                                        day: "numeric",
-                                                        month: "long",
-                                                        year: "numeric",
-                                                    })}
-                                                </p>
+                                          <div className="border-t border-gray-400 pt-1">
+  <p className="text-[10px] text-gray-500">दिनांक / Date</p>
+  <p className="font-bold text-sm">
+    {new Date(safeData.issueDate).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })}
+  </p>
+</div>
 
-                                            </div>
                                         </div>
 
 
