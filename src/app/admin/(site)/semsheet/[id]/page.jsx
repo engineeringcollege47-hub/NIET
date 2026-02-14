@@ -6,16 +6,28 @@ import SemmarksheetPreview from "@/Components/SemmarksheetPreview/SemmarksheetPr
 export default function MarksheetPage() {
   const { id } = useParams();
   const [saving, setSaving] = useState(false);
+  // const SEMESTER_OPTIONS = [
+  //   "1st Sem",
+  //   "2nd Sem",
+  //   "3rd Sem",
+  //   "4th Sem",
+  //   "5th Sem",
+  //   "6th Sem",
+  //   "7th Sem",
+  //   "8th Sem",
+  // ];
+
   const SEMESTER_OPTIONS = [
-    "1st Sem",
-    "2nd Sem",
-    "3rd Sem",
-    "4th Sem",
-    "5th Sem",
-    "6th Sem",
-    "7th Sem",
-    "8th Sem",
-  ];
+  "FIRST SEMESTER",
+  "SECOND SEMESTER",
+  "THIRD SEMESTER",
+  "FOURTH SEMESTER",
+  "FIFTH SEMESTER",
+  "SIXTH SEMESTER",
+  "SEVENTH SEMESTER",
+  "EIGHTH SEMESTER",
+];
+
 
   /* ======================
      MAIN SINGLE OBJECT
