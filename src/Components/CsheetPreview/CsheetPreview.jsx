@@ -170,13 +170,22 @@ export default function CsheetPreview({ data }) {
                                             </div>
                                             <div className="font-bold text-base text-gray-900 uppercase flex-grow">
                                                 {safeData?.dob
-                                                    ? new Intl.DateTimeFormat("en-GB", {
-                                                        day: "2-digit",
-                                                        month: "short", // 👈 Dec
-                                                        year: "numeric",
-                                                    }).format(new Date(safeData.dob))
+                                                    ? (() => {
+                                                        const date = new Date(safeData.dob);
+                                                        const months = [
+                                                            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                                        ];
+
+                                                        const day = String(date.getDate()).padStart(2, "0");
+                                                        const month = months[date.getMonth()];
+                                                        const year = date.getFullYear();
+
+                                                        return `${day} ${month} ${year}`;
+                                                    })()
                                                     : ""}
                                             </div>
+
 
 
 
@@ -228,16 +237,19 @@ export default function CsheetPreview({ data }) {
                                         {/* Left: Place/Date */}
                                         <div className="text-center w-1/4">
                                             <p className="font-bold text-sm mb-4">{safeData.place}</p>
-                                          <div className="border-t border-gray-400 pt-1">
-  <p className="text-[10px] text-gray-500">दिनांक / Date</p>
-  <p className="font-bold text-sm">
-    {new Date(safeData.issueDate).toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    })}
-  </p>
-</div>
+                                            <div className="border-t border-gray-400 pt-1">
+                                                <p className="text-[10px] text-gray-500">दिनांक / Date</p>
+                                                <p className="font-bold text-sm">
+                                                    {(() => {
+                                                        const date = new Date(safeData.issueDate);
+                                                        const day = date.getDate();
+                                                        const year = date.getFullYear();
+                                                        const month = date.toLocaleString("en-GB", { month: "short" }).slice(0, 3);
+                                                        return `${day} ${month} ${year}`;
+                                                    })()}
+                                                </p>
+
+                                            </div>
 
                                         </div>
 

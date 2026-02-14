@@ -248,13 +248,22 @@ export default function MarksheetPreview({ marksheet }) {
                           <span className="text-[#5c3a21] mr-2 whitespace-nowrap">DOB :</span>
                           <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">
                             {data?.dob
-                              ? new Date(data.dob).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                              })
+                              ? (() => {
+                                const date = new Date(data.dob);
+                                const months = [
+                                  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                ];
+
+                                const day = String(date.getDate()).padStart(2, "0");
+                                const month = months[date.getMonth()];
+                                const year = date.getFullYear();
+
+                                return `${day} ${month} ${year}`;
+                              })()
                               : ""}
                           </span>
+
                         </div>
 
 
@@ -398,12 +407,21 @@ export default function MarksheetPreview({ marksheet }) {
                         <div>
                           <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider">{data.city} Date of Issue :</p>
                           <p className="font-semibold pl-2">
-                            {new Date(data.issueDate).toLocaleDateString("en-GB", {
-                              day: "2-digit",
-                              month: "short",
-                              year: "numeric",
-                            })}
+                            {(() => {
+                              const date = new Date(data.issueDate);
+                              const months = [
+                                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                              ];
+
+                              const day = String(date.getDate()).padStart(2, "0");
+                              const month = months[date.getMonth()];
+                              const year = date.getFullYear();
+
+                              return `${day} ${month} ${year}`;
+                            })()}
                           </p>
+
 
                         </div>
 
