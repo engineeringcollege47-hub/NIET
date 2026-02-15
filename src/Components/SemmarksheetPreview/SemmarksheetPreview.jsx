@@ -123,7 +123,7 @@ export default function SemmarksheetPreview({ marksheet }) {
                             printColorAdjust: "exact",
                         }}
                     >
-                        <div className="bg-[#5c3a21b7] p-0.5 h-[297mm] rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
+                        <div className="bg-[#5c3a21b7] p-0.5 rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
 
                             <div className="bg-[#cba35800] p-0.75 border border-[#8c6239]">
 
@@ -309,8 +309,8 @@ export default function SemmarksheetPreview({ marksheet }) {
                                                         </tr>
                                                     ))}
 
-                                                    {[...Array(Math.max(0, 10 - data.subjects.length))].map((_, i) => (
-                                                        <tr key={`empty-${i}`} className="h-9">
+                                                    {[...Array(Math.max(0, 8 - data.subjects.length))].map((_, i) => (
+                                                        <tr key={`empty-${i}`} className="h-12">
                                                             <td className="border-r-[1.5px] border-b border-[#5c3a21]/10 border-l-[1.5px] border-l-[#5c3a21]"></td>
                                                             <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
                                                             <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
@@ -381,7 +381,7 @@ export default function SemmarksheetPreview({ marksheet }) {
                                             </div>
 
 
-                                            <div className="flex justify-between items-end text-[11px] py-16 px-2 relative">
+                                            <div className="flex justify-between items-end text-[11px] py-20 px-2 relative">
                                                 <div>
                                                     <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider">{data.city} Date of Issue :</p>
                                                     <p className="font-semibold pl-2">
@@ -434,7 +434,7 @@ export default function SemmarksheetPreview({ marksheet }) {
                             <div className="bg-[#5c3a21] p-0.5  rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
                                 <div className="bg-[#cba35800] p-0.75  border border-[#8c6239]">
                                     <div className="bg-[#fbf9ea]  p-0.5 border border-[#5c3a21]">
-                                        <div className="border-[3px] h-[297mm] border-double border-[#8c6239]/60 relative overflow-hidden">
+                                        <div className="border-[3px] h-[292mm] border-double border-[#8c6239]/60 relative overflow-hidden">
 
                                             <div className="absolute inset-0 z-0 pointer-events-none opacity-10">
                                                 <div
