@@ -123,7 +123,7 @@ export default function SemmarksheetPreview({ marksheet }) {
                             printColorAdjust: "exact",
                         }}
                     >
-                        <div className="bg-[#5c3a21b7] p-0.5 rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
+                        <div className="bg-[#5c3a21b7] p-0.5 h-[297mm] rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
 
                             <div className="bg-[#cba35800] p-0.75 border border-[#8c6239]">
 
@@ -381,7 +381,7 @@ export default function SemmarksheetPreview({ marksheet }) {
                                             </div>
 
 
-                                            <div className="flex justify-between items-end text-[11px] mt-10 py-20 px-2 relative">
+                                            <div className="flex justify-between items-end text-[11px] py-16 px-2 relative">
                                                 <div>
                                                     <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider">{data.city} Date of Issue :</p>
                                                     <p className="font-semibold pl-2">
