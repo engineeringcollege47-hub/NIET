@@ -7,6 +7,7 @@ import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
     const [liveAddress, setLiveAddress] = useState(null);
+    const [liveEmail, setLiveEmail] = useState(null);
     const [livenumber, setLiveNumber] = useState(null);
 
     useEffect(() => {
@@ -16,6 +17,8 @@ export default function Footer() {
                 setLiveAddress(res.data);
                 const res2 = await axios.get('/api/mobile/live');
                 setLiveNumber(res2.data);
+                const res3 = await axios.get('/api/email/live');
+                setLiveEmail(res3.data);
             } catch (err) {
                 console.log('No live address found');
             }
@@ -72,7 +75,7 @@ export default function Footer() {
 
                         <p className="flex items-center gap-2 text-sm mb-3">
                             <Mail size={18} className="text-orange-500" />
-                            engineeringCollege47@gmail.com
+                            {liveEmail?.email || ''}
                         </p>
 
                         <p className="flex items-center gap-2 text-sm mb-2">
@@ -81,7 +84,7 @@ export default function Footer() {
                         </p>
                         <p className="flex items-center gap-2 text-sm mb-2">
                             <Phone size={18} className="text-orange-500" />
-                          011 8151 3645
+                            011 8151 3645
                         </p>
                     </div>
 

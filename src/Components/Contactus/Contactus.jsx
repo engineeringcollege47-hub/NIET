@@ -11,6 +11,7 @@ export default function Contactus() {
     message: '',
   });
   const [livenumber, setLiveNumber] = useState(null);
+  const [liveEmail, setLiveEmail] = useState(null);
 
   const [liveAddress, setLiveAddress] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,8 @@ export default function Contactus() {
         setLiveAddress(res.data);
         const res2 = await axios.get('/api/mobile/live');
         setLiveNumber(res2.data);
+        const res3 = await axios.get('/api/email/live');
+        setLiveEmail(res3.data);
       } catch (err) {
         console.log('No live address found');
       }
@@ -92,7 +95,7 @@ export default function Contactus() {
 
               <div>
                 <p className="font-semibold">Email</p>
-                <p className="text-sm mt-1">engineeringCollege47@gmail.com</p>
+                <p className="text-sm mt-1">{liveEmail?.email || ''}</p>
               </div>
 
               <div>

@@ -66,6 +66,9 @@ export default function AdminHeader() {
                             <Link href="/admin/Mobile" className={`${isActive("/admin/Mobile")} hover:text-orange-600 underline`}>
                                 Mobile
                             </Link>
+                            <Link href="/admin/Email" className={`${isActive("/admin/Email")} hover:text-orange-600 underline`}>
+                                Email
+                            </Link>
 
 
                             <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600 underline`}>
