@@ -39,10 +39,19 @@ export default function SemmarksheetPreview({ marksheet }) {
     ];
 
     // 🔹 Dynamic Calculations
+    // 🔹 Dynamic Calculations
     const maxTotal = subjects.reduce((sum, s) => sum + Number(s.max || 0), 0);
-    const practicleTotal = subjects.reduce((sum, s) => sum + Number(s.practicle || 0), 0);
     const minTotal = subjects.reduce((sum, s) => sum + Number(s.min || 0), 0);
-    const grandTotal = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
+
+    // CHANGED: Summing both Theory (marks) and Practical for the Grand Total
+    const grandTotal = subjects.reduce((sum, s) => {
+        return sum + Number(s.marks || 0) + Number(s.practicle || 0);
+    }, 0);
+    const grandTotal2 = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
+
+    // Helper for the display row in the table
+    const practicleTotal = subjects.reduce((sum, s) => sum + Number(s.practicle || 0), 0);
+    const marksObtainedTotal = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
 
     const data = {
         rollNumber: marksheet.rollNumber || "-----",
@@ -69,9 +78,7 @@ export default function SemmarksheetPreview({ marksheet }) {
 
         result: marksheet.result || (grandTotal >= minTotal ? "PASS" : "FAIL"),
         grade: marksheet.grade || "A",
-        marksInWords:
-            marksheet.marksInWords ||
-            `${numberToWords(grandTotal)}`,
+      marksInWords: `${numberToWords(grandTotal)}`,
 
         description:
             marksheet.description ||
@@ -335,7 +342,7 @@ export default function SemmarksheetPreview({ marksheet }) {
                                                             {data.practicleTotal}
                                                         </td>
                                                         <td className="text-center text-[14px]  text-[#5c3a21]">
-                                                            {data.grandTotal}
+                                                            {grandTotal2}
                                                         </td>
                                                     </tr>
                                                 </tbody>

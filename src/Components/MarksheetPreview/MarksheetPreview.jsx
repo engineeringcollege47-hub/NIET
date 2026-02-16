@@ -42,8 +42,12 @@ export default function MarksheetPreview({ marksheet }) {
   const maxTotal = subjects.reduce((sum, s) => sum + Number(s.max || 0), 0);
   const practicleTotal = subjects.reduce((sum, s) => sum + Number(s.practicle || 0), 0);
   const minTotal = subjects.reduce((sum, s) => sum + Number(s.min || 0), 0);
-  const grandTotal = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
+  const grandTotal2 = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
 
+  // UPDATED: Summing Theory (marks) + Practical for the display total
+  const grandTotal = subjects.reduce((sum, s) => {
+    return sum + Number(s.marks || 0) + Number(s.practicle || 0);
+  }, 0);
   const data = {
     rollNumber: marksheet.rollNumber || "-----",
     dob: marksheet.dob || "-----",
@@ -69,10 +73,7 @@ export default function MarksheetPreview({ marksheet }) {
 
     result: marksheet.result || (grandTotal >= minTotal ? "PASS" : "FAIL"),
     grade: marksheet.grade || "A",
-    marksInWords:
-      marksheet.marksInWords ||
-      `${numberToWords(grandTotal)}`,
-
+   marksInWords: `${numberToWords(grandTotal)}`,
     description:
       marksheet.description ||
       "This marksheet is issued based on the performance of the student in the above-mentioned examination. All information has been compiled from the records maintained by the institution. Any tampering, overwriting, or unauthorised alteration will render this marksheet null and void. The marks and results are subject to verification from the original records held with the Controller of Examination."
@@ -335,7 +336,7 @@ export default function MarksheetPreview({ marksheet }) {
                               {data.practicleTotal}
                             </td>
                             <td className="text-center text-[14px]  text-[#5c3a21]">
-                              {data.grandTotal}
+                              {grandTotal2}
                             </td>
                           </tr>
                         </tbody>
