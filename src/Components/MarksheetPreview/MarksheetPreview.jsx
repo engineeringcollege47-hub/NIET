@@ -404,7 +404,7 @@ export default function MarksheetPreview({ marksheet }) {
                       </div>
 
 
-                      <div className="flex justify-between items-end text-[11px] py-20 px-2 relative">
+                      <div className="flex justify-between items-end text-[11px] pt-40 px-2 relative">
                         <div>
                           <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider">{data.city} Date of Issue :</p>
                           <p className="font-semibold pl-2">
