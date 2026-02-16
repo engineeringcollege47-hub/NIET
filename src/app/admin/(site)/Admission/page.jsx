@@ -17,6 +17,7 @@ const FILTER_FIELDS = [
 export default function Page() {
   const [admissions, setAdmissions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lockedIds, setLockedIds] = useState([]);
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -45,6 +46,10 @@ export default function Page() {
 
     setAdmissions(json.data || []);
     setTotalPages(json.pagination?.totalPages || 1);
+
+    const lockRes = await fetch('/api/Lock'); // Create a simple GET route for this
+    const lockData = await lockRes.json();
+    setLockedIds(lockData.data.map(l => l.Id));
     setLoading(false);
   };
 
@@ -55,6 +60,26 @@ export default function Page() {
     fetchAdmissions();
   }, [page, filters]);
 
+
+  
+  const handleToggleLock = async (certificateId) => {
+    const plainpassword = prompt("Enter Admin Password to continue:");
+    if (!plainpassword) return;
+
+    const res = await fetch("/api/Lock/toggle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Id: certificateId, plainpassword })
+    });
+
+    const result = await res.json();
+    if (res.ok) {
+      alert(result.message);
+      fetchAdmissions(); // Refresh to update button states
+    } else {
+      alert(result.error || "Something went wrong");
+    }
+  };
   /* ======================
      ADD FILTER
   ====================== */
@@ -199,6 +224,7 @@ export default function Page() {
               <th className="px-4 py-3">FinalMarksheet</th>
               <th className="px-4 py-3">Semster Marksheet</th>
               <th className="px-4 py-3">Action</th>
+              <th className="px-4 py-3">Secure</th>
             </tr>
           </thead>
 
@@ -219,132 +245,102 @@ export default function Page() {
               </tr>
             )}
 
-            {admissions.map((item) => (
-              <tr key={item._id} className="border-t">
-                <td className="px-4 py-3 font-medium">
-                  {item.enrollmentNumber}
-                </td>
-                <td className="px-4 py-3">{item.name}</td>
-                <td className="px-4 py-3">
-                  {item.dob
-                    ? new Date(item.dob).toLocaleDateString("en-GB")
-                    : "-"}
-                </td>
+           {admissions.map((item) => {
+  // Check if this specific enrollment is in our lockedIds array
+  const isLocked = lockedIds.includes(item.enrollmentNumber);
 
-                <td className="px-4 py-3">{item.programme}</td>
-                <td className="px-4 py-3">{item.mobile}</td>
+  return (
+    <tr key={item._id} className="border-t">
+      <td className="px-4 py-3 font-medium">{item.enrollmentNumber}</td>
+      <td className="px-4 py-3">{item.name}</td>
+      <td className="px-4 py-3">
+        {item.dob ? new Date(item.dob).toLocaleDateString("en-GB") : "-"}
+      </td>
+      <td className="px-4 py-3">{item.programme}</td>
+      <td className="px-4 py-3">{item.mobile}</td>
 
-                <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-1 text-xs rounded ${item.paymentStatus
-                      ? "bg-green-100 text-green-700"
-                      : "bg-yellow-100 text-yellow-700"
-                      }`}
-                  >
-                    {item.paymentStatus ? "Paid" : "Pending"}
-                  </span>
-                </td>
+      {/* Payment Status */}
+      <td className="px-4 py-3">
+        <span className={`px-2 py-1 text-xs rounded ${item.paymentStatus ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+          {item.paymentStatus ? "Paid" : "Pending"}
+        </span>
+      </td>
 
-                <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-1 text-xs rounded ${item.enrollStatus
-                      ? "bg-blue-100 text-blue-700"
-                      : "bg-gray-100 text-gray-600"
-                      }`}
-                  >
-                    {item.enrollStatus ? "Enrolled" : "Not Enrolled"}
-                  </span>
-                </td>
+      {/* Enroll Status */}
+      <td className="px-4 py-3">
+        <span className={`px-2 py-1 text-xs rounded ${item.enrollStatus ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-600"}`}>
+          {item.enrollStatus ? "Enrolled" : "Not Enrolled"}
+        </span>
+      </td>
 
-                <td className="px-4 py-3">
-                  {item.paymentStatus && item.enrollStatus ? (
-                    item.certificateStatus ? (
-                      <div className="flex gap-3">
-                        {/* UPDATE LINK */}
-                        <Link
-                          href={`/admin/csheet/${item.enrollmentNumber}`}
-                          className="text-green-600 font-medium hover:underline"
-                        >
-                          Update
-                        </Link>
+      {/* 1. Certificate Column (Disabled if Locked) */}
+      <td className="px-4 py-3">
+        {isLocked ? (
+          <span className="text-gray-400 italic">🔒 Locked</span>
+        ) : item.paymentStatus && item.enrollStatus ? (
+          item.certificateStatus ? (
+            <div className="flex gap-3">
+              <Link href={`/admin/csheet/${item.enrollmentNumber}`} className="text-green-600 font-medium hover:underline">Update</Link>
+              <Link href={`/admin/csheet`} className="text-blue-600 font-medium hover:underline">Check</Link>
+            </div>
+          ) : (
+            <Link href={`/admin/csheet/${item.enrollmentNumber}`} className="text-green-600 font-medium hover:underline">Generate Certificate</Link>
+          )
+        ) : (
+          <span className="text-gray-400 cursor-not-allowed">Generate Certificate</span>
+        )}
+      </td>
 
-                        {/* CHECK LINK */}
-                        <Link
-                          href={`/admin/csheet`}
-                          className="text-blue-600 font-medium hover:underline"
-                        >
-                          Check
-                        </Link>
-                      </div>
-                    ) : (
-                      <Link
-                        href={`/admin/csheet/${item.enrollmentNumber}`}
-                        className="text-green-600 font-medium hover:underline"
-                      >
-                        Generate Certificate
-                      </Link>
-                    )
-                  ) : (
-                    <span className="text-gray-400 cursor-not-allowed">
-                      {item.certificateStatus ? "Certificate" : "Generate Certificate"}
-                    </span>
-                  )}
-                </td>
+      {/* 2. Final Marksheet Column (Disabled if Locked) */}
+      <td className="px-4 py-3">
+        {isLocked ? (
+          <span className="text-gray-400 italic">🔒 Locked</span>
+        ) : item.paymentStatus && item.enrollStatus ? (
+          item.marksheetStatus ? (
+            <div className="flex gap-3">
+              <Link href={`/admin/msheet/${item.enrollmentNumber}`} className="text-green-600 font-medium hover:underline">Update</Link>
+              <Link href={`/admin/msheet`} className="text-blue-600 font-medium hover:underline">Check</Link>
+            </div>
+          ) : (
+            <Link href={`/admin/msheet/${item.enrollmentNumber}`} className="text-green-600 font-medium hover:underline">Generate Final Marksheet</Link>
+          )
+        ) : (
+          <span className="text-gray-400 cursor-not-allowed">Generate Final Marksheet</span>
+        )}
+      </td>
 
+      {/* 3. Semester Marksheet (Disabled if Locked) */}
+      <td className="px-4 py-3">
+        {isLocked ? (
+          <span className="text-gray-400 italic">🔒 Locked</span>
+        ) : (
+          <Link href={`/admin/semsheetlist/${item.enrollmentNumber}`} className="text-green-600 font-medium hover:underline">Check</Link>
+        )}
+      </td>
 
+      {/* 4. Action / Admission Link (Disabled if Locked) */}
+      <td className="px-4 py-3">
+        {isLocked ? (
+          <span className="text-gray-400 italic">🔒 Locked</span>
+        ) : (
+          <Link href={`./Admission/${item.enrollmentNumber}`} className="text-orange-600 hover:underline">Action</Link>
+        )}
+      </td>
 
-                <td className="px-4 py-3">
-                  {item.paymentStatus && item.enrollStatus ? (
-                    item.marksheetStatus ? (
-                      <div className="flex gap-3">
-                        {/* UPDATE LINK */}
-                        <Link
-                          href={`/admin/msheet/${item.enrollmentNumber}`}
-                          className="text-green-600 font-medium hover:underline"
-                        >
-                          Update
-                        </Link>
-
-                        {/* CHECK LINK */}
-                        <Link
-                          href={`/admin/msheet`}
-                          className="text-blue-600 font-medium hover:underline"
-                        >
-                          Check
-                        </Link>
-                      </div>
-                    ) : (
-                      <Link
-                        href={`/admin/msheet/${item.enrollmentNumber}`}
-                        className="text-green-600 font-medium hover:underline"
-                      >
-                        Generate Final Marksheet
-                      </Link>
-                    )
-                  ) : (
-                    <span className="text-gray-400 cursor-not-allowed">
-                      {item.marksheetStatus ? "Final Marksheet" : "Generate Final Marksheet"}
-                    </span>
-                  )}
-                </td>
-
-                <td className="px-4 py-3">
-
-                  <Link
-                    href={`/admin/semsheetlist/${item.enrollmentNumber}`}
-                    className="text-green-600 font-medium hover:underline"
-                  >
-                    Check
-                  </Link>
-                </td>
-
-                <td className="px-4 py-3">
-                  <Link href={`./Admission/${item.enrollmentNumber}`} className="text-orange-600 hover:underline">
-                    Action
-                  </Link>
-                </td>
-              </tr>
-            ))}
+      {/* 5. THE LOCK/UNLOCK BUTTON (Always visible for Admin) */}
+      <td className="px-4 py-3">
+        <button
+          onClick={() => handleToggleLock(item.enrollmentNumber)}
+          className={`px-3 py-1 rounded text-xs text-white font-bold transition-colors ${
+            isLocked ? "bg-red-500 hover:bg-red-600" : "bg-gray-500 hover:bg-black"
+          }`}
+        >
+          {isLocked ? "UNLOCK" : "LOCK"}
+        </button>
+      </td>
+    </tr>
+  );
+})}
           </tbody>
         </table>
       </div>
