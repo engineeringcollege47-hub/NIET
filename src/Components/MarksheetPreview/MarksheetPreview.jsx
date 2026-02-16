@@ -45,8 +45,11 @@ export default function MarksheetPreview({ marksheet }) {
   const grandTotal2 = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
 
   // UPDATED: Summing Theory (marks) + Practical for the display total
+  // const grandTotal = subjects.reduce((sum, s) => {
+  //   return sum + Number(s.marks || 0) + Number(s.practicle || 0);
+  // }, 0);
   const grandTotal = subjects.reduce((sum, s) => {
-    return sum + Number(s.marks || 0) + Number(s.practicle || 0);
+    return sum + Number(s.marks || 0);
   }, 0);
   const data = {
     rollNumber: marksheet.rollNumber || "-----",

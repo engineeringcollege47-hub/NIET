@@ -44,8 +44,13 @@ export default function SemmarksheetPreview({ marksheet }) {
     const minTotal = subjects.reduce((sum, s) => sum + Number(s.min || 0), 0);
 
     // CHANGED: Summing both Theory (marks) and Practical for the Grand Total
-    const grandTotal = subjects.reduce((sum, s) => {
-        return sum + Number(s.marks || 0) + Number(s.practicle || 0);
+    
+    // const grandTotal = subjects.reduce((sum, s) => {
+    //     return sum + Number(s.marks || 0) + Number(s.practicle || 0);
+    // }, 0);
+
+     const grandTotal = subjects.reduce((sum, s) => {
+        return sum + Number(s.marks || 0);
     }, 0);
     const grandTotal2 = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
 
